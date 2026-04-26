@@ -12,7 +12,7 @@ export const CreateProject = async (req, res) => {
         res.status(201).json({ newProject })
     } catch (error) {
         console.log("error in createProject controller");
-        return res.status(400).json({ message: "error , project.controller.createProject" })
+        return res.status(500).json({ message: "error , project.controller.createProject" })
     }
 }
 
