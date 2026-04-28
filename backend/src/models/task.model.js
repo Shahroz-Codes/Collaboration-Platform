@@ -9,7 +9,7 @@ const taskSchema = new mongoose.Schema({
         type: String,
     },
     completed: {
-        type: boolean,
+        type: Boolean,
         default: false,
     },
     projectId: {

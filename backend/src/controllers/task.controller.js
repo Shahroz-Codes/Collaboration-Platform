@@ -1,9 +1,13 @@
 import Task from "../models/task.model.js";
+import Project from "../models/project.model.js"
+import mongoose from "mongoose";
 
-export const createTask = (req, res) => {
+export const createTask = async (req, res) => {
     const { title, description } = req.body;
     const { projectId } = req.params
     try {
+        const project = await Project.findOne({ _id: projectId, userId: req.user._id })
+        if (!project) return res.status(403).json({ message: "Not authorized to add tasks to this project" })
         const task = new Task({
             title,
             description,
@@ -19,9 +23,13 @@ export const createTask = (req, res) => {
     }
 }
 
-export const getTask = (req, res) => {
+export const getTask = async (req, res) => {
     try {
         const { projectId } = req.params;
+
+        const project = await Project.findOne({ _id: projectId, userId: req.user._id });
+        if (!project) return res.status(403).json({ message: "Not authorized to view tasks for this project" });
+
         const tasks = await Task.find({ projectId });
         res.json(tasks);
     } catch (error) {
@@ -32,11 +40,20 @@ export const getTask = (req, res) => {
 
 export const updateTask = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { taskId } = req.params;
         const updates = req.body; // { title?, description?, completed? }
 
-        const task = await Task.findByIdAndUpdate(id, updates, { returnDocument: "after" });
-        if (!task) return res.status(404).json({ message: "Task not found" });
+        const { projectId } = req.params;
+
+        const project = await Project.findOne({ _id: projectId, userId: req.user._id });
+        if (!project) return res.status(403).json({ message: "Not authorized to update tasks for this project" });
+
+        const task = await Task.findOneAndUpdate(
+            { _id: taskId, projectId: new mongoose.Types.ObjectId(projectId) },
+            updates,
+            { returnDocument: "after" } 
+        );
+        if (!task) return res.status(404).json({ message: "Task not found",Error });
 
         res.json(task);
     } catch (error) {
@@ -45,11 +62,15 @@ export const updateTask = async (req, res) => {
     }
 };
 
-// Delete task
 export const deleteTask = async (req, res) => {
     try {
-        const { id } = req.params;
-        const task = await Task.findByIdAndDelete(id);
+        const { taskId } = req.params;
+        const { projectId } = req.params;
+
+        const project = await Project.findOne({ _id: projectId, userId: req.user._id });
+        if (!project) return res.status(403).json({ message: "Not authorized to delete tasks for this project" });
+
+        const task = await Task.findOneAndDelete({ _id: taskId, projectId: new mongoose.Types.ObjectId(projectId) });
         if (!task) return res.status(404).json({ message: "Task not found" });
 
         res.json({ message: "Task deleted successfully" });
