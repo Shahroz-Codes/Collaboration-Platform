@@ -7,11 +7,21 @@ import authroutes from "./routes/auth.route.js"
 import projectroutes from "./routes/project.routes.js"
 import taskroutes from "./routes/task.route.js"
 
+import cors from "cors";
+
+
+
+
 dotenv.config();
 const app = express();
 const PORT= process.env.PORT || 4004
+
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+  origin: "http://localhost:5173", // allow frontend dev server
+  credentials: true,               // allow cookies / auth headers
+}));
 
 
 app.use("/api/auth",authroutes)

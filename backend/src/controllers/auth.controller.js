@@ -84,3 +84,22 @@ export const logout = async (req, res) => {
         return res.status(500).json({ message: "internal server error , auth.controller.logout" })
     }
 }
+
+// controllers/auth.controller.js
+export const getMe = async (req, res) => {
+  try {
+    // protect middleware should already attach user to req.user
+    if (!req.user) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+
+    res.status(200).json({
+      _id: req.user._id,
+      fullName: req.user.fullName,
+      email: req.user.email,
+    });
+  } catch (error) {
+    console.log("error in getMe controller");
+    res.status(500).json({ message: "internal server error , auth.controller.getMe" });
+  }
+};
