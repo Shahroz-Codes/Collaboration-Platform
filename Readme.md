@@ -109,16 +109,16 @@ npm run dev
 
 ## 📸 Project Screenshots 
 - Homepage
-![Homepage Screenshot](screenshots/HomePage.png)
+![Homepage Screenshot](./screenshots/HomePage.png)
 
 - Projects Page
-![ Projects Page Screenshot](screenshots/ProjectsPage.png)
+![ Projects Page Screenshot](./screenshots/ProjectsPage.png)
 
 - Tasks Page
-![ Tasks Page Screenshot](screenshots/TasksPage.png)
+![ Tasks Page Screenshot](./screenshots/TasksPage.png)
 
 - Signup Page
-![ Signup Page Screenshot](screenshots/Signup.png)
+![ Signup Page Screenshot](./screenshots/Signup.png)
 
 ## 👤 Author
 
