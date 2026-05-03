@@ -5,9 +5,9 @@ export default function Navbar() {
   const { isAuthenticated, logout } = useAuthStore();
 
   return (
-    <nav className="bg-black text-white px-8 py-4 flex items-center justify-between shadow-md">
+    <nav className="bg-black sticky text-white px-8 py-4 flex items-center justify-between shadow-md">
       {/* Logo */}
-      <h1 className="text-2xl font-extrabold tracking-wide">Trekova</h1>
+      <h1 className="text-2xl font-extrabold tracking-wide">Freelancer - Workspace</h1>
 
       {/* Links */}
       <div className="flex items-center space-x-8  font-medium">
