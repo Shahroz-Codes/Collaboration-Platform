@@ -64,10 +64,10 @@ This MVP demonstrates secure authentication, project management, and task tracki
 ### Tasks
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | /api/tasks/:projectId | Get tasks |
-| POST | /api/tasks | Create task |
-| PUT | /api/tasks/:id | Update task |
-| DELETE | /api/tasks/:id | Delete task |
+| GET | /api/projects/:projectId/tasks | Get tasks |
+| POST | /api/projects/:projectId/tasks | Create task |
+| PATCH | /api/projects/:projectId/tasks/:taskId | Update task |
+| DELETE | /api/projects//:projectId/tasks/:taskId | Delete task |
 
 ## 📦 Requirements
 
